@@ -21,7 +21,8 @@ var server = lr();
 
 var vendorJS = [
     './node_modules/angular/angular.min.js',
-    './node_modules/angular-ui-router/release/angular-ui-router.min.js'
+    './node_modules/angular-ui-router/release/angular-ui-router.min.js',
+    './node_modules/angular-ui-bootstrap/ui-bootstrap.min.js'
 ];
 
 /* Vendor CSS files are minified into vendor.css and placed into dist/assets/css/vendor.css */
@@ -140,6 +141,6 @@ gulp.task('default', function() {
 
     gulp.watch('app/src/**', ['scripts'])
     gulp.watch('app/vendor/variables.less', ['flatUILess'])
-    gulp.watch('app/css/**', ['styles'])
+    gulp.watch('app/src/styles/**', ['styles'])
     gulp.watch('app/**/*.html', ['html'])
 })

@@ -5,12 +5,16 @@ routerModule.config(setupRouter);
 function setupRouter($stateProvider, $urlRouterProvider) {
     //
     // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise("/ui");
+    $urlRouterProvider.otherwise("/notifications");
     //
     // Now set up the states
     $stateProvider
-        .state('ui', {
-            url: "/ui",
-            templateUrl: "views/ui.html"
+        .state('notifications', {
+            url: "/notifications",
+            templateUrl: "views/notifications.html"
+        })
+        .state('centralinks', {
+            url: "/centralinks",
+            templateUrl: "views/centralinks.html"
         });
 }

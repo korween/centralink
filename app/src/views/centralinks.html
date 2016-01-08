@@ -1,0 +1,44 @@
+<navbar></navbar>
+
+<div class="container-fluid">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel">
+            <div class="panel-body">
+
+                <!-- repeat for each centralink -->
+                <div class="panel panel-default" ng-repeat="msg in centralinks" ng-click="expandPost($index)">
+                    <div class="panel-body">
+                        <div class="col-md-1">
+                            <div class="block  pull-right" ng-class="getClassFromStatus(msg.status)">{{msg.status | status}}</div>
+                        </div>
+                        <div class="col-md-8" ng-hide="editMode">
+                            <div><b>{{msg.title | uppercase}}</b></div>
+                            <div class="subdate">Créé le {{msg.date | date}}</div>
+                            <div>
+                                <p class="justify">
+                                    {{msg.body | summary}}<span ng-hide="msg.expand">...</span><span ng-show="msg.expand">{{msg.body | xtend}}</span>
+                                </p>
+                            </div>
+
+                        </div>
+                        <edit-form ng-show="editMode"></edit-form>
+                        <button class="btn btn-info pull-right"
+                                ng-show="msg.status!='sent' && !editMode"
+                                ng-click="editMode=true;"><i class="fui-new"></i></button>
+                        <button class="btn btn-warning pull-right"
+                                ng-show="editMode"
+                                ng-click="trash()"><i class="fui-trash"></i></button>
+                        <button class="btn btn-danger pull-right"
+                                ng-show="editMode"
+                                ng-click="reset()"><i class="fui-cross"></i></button>
+                        <button class="btn btn-success pull-right"
+                                ng-show="editMode"
+                                ng-click="save()"><i class="fui-check"></i></button>
+                    </div>
+                </div>
+                <!-- end repeat -->
+
+            </div>
+        </div>
+    </div>
+</div>
