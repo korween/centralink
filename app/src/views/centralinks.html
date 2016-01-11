@@ -24,14 +24,14 @@
                         <edit-form ng-show="editMode"></edit-form>
                         <button class="btn btn-info pull-right"
                                 ng-show="msg.status!='sent' && !editMode"
-                                ng-click="editMode=true;"><i class="fui-new"></i></button>
-                        <button class="btn btn-warning pull-right"
-                                ng-show="editMode"
-                                ng-click="trash()"><i class="fui-trash"></i></button>
+                                ng-click="editMode=true;    "><i class="fui-new"></i></button>
                         <button class="btn btn-danger pull-right"
                                 ng-show="editMode"
-                                ng-click="reset()"><i class="fui-cross"></i></button>
-                        <button class="btn btn-success pull-right"
+                                ng-click="trash()"><i class="fui-trash"></i></button>
+                        <button class="btn btn-warning pull-right spaced"
+                                ng-show="editMode"
+                                ng-click="editMode=false"><i class="fui-cross"></i></button>
+                        <button class="btn btn-success pull-right spaced"
                                 ng-show="editMode"
                                 ng-click="save()"><i class="fui-check"></i></button>
                     </div>

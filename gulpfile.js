@@ -28,7 +28,7 @@ var vendorJS = [
 /* Vendor CSS files are minified into vendor.css and placed into dist/assets/css/vendor.css */
 
 var vendorCSS = [
-    './node_modules/flat-ui/bootstrap/css/bootstrap.css',
+    './node_modules/bootstrap/dist/css/bootstrap.css',
     //'./node_modules/flat-ui/css/flat-ui.css'
 ];
 
