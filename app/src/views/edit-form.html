@@ -1,14 +1,20 @@
 <form>
     <div class="col-md-8">
-        <div><input type="text" class="form-control" ng-model="msg.title" placeholder="Titre"/></div>
-        <div><ul class="pager">
-            <li><span>Communication</span></li>
-            <li><span>Evenements</span></li>
-            <li><span>Special</span></li>
-        </ul></div>
+        <div><input type="text" class="form-control" ng-model="editData.title" placeholder="Titre"/></div>
+        <br>
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <div class="btn btn-primary"
+                     ng-repeat="item in categories"
+                     ng-class="(item==editData.category)?'active':''"
+                     ng-click="selectCategory($index)">{{item | category}}
+                </div>
+            </div>
+        </div>
+        <br/>
         <div>
             <p class="justify">
-            <textarea msd-elastic="\n" class="form-control" ng-model="msg.body" placeholder="Contenu"/>
+            <textarea msd-elastic="\n" class="form-control" ng-model="editData.body" placeholder="Contenu"/>
             </p>
         </div>
 

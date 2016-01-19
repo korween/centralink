@@ -12,7 +12,7 @@
     "bulk-require": "^0.2.1",
     "bulkify": "^1.1.1",
     "express": "^4.13.3",
-    "flat-ui": "https://github.com/designmodo/Flat-UI",
+    "flat-ui": "designmodo/Flat-UI.git",
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.6.0",
