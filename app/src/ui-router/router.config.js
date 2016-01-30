@@ -3,18 +3,28 @@ var routerModule = require('./_index');
 routerModule.config(setupRouter);
 
 function setupRouter($stateProvider, $urlRouterProvider) {
-    //
-    // For any unmatched url, redirect to /state1
+    console.log('Router loaded')
+
+
     $urlRouterProvider.otherwise("/notifications");
-    //
-    // Now set up the states
+
     $stateProvider
+        .state('default', {
+            url:'/'
+        })
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/login.html",
+            data: { access: 'all' }
+        })
         .state('notifications', {
             url: "/notifications",
-            templateUrl: "views/notifications.html"
+            templateUrl: "views/notifications.html",
+            data: { access: 'user' }
         })
         .state('centralinks', {
             url: "/centralinks",
-            templateUrl: "views/centralinks.html"
+            templateUrl: "views/centralinks.html",
+            data: { access: 'user' }
         });
 }

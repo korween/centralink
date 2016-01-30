@@ -8,7 +8,9 @@
                 <div class="panel panel-default" ng-repeat="msg in centralinks" ng-click="expandPost($index)">
                     <div class="panel-body">
                         <div class="col-md-1">
-                            <div class="block  pull-right" ng-class="getClassFromStatus(msg.status)">{{msg.status | status}}</div>
+                            <div class="block pull-right" ng-class="getClassFromStatus(msg.status)">
+                                <i ng-class="msg.status| statusIcon"></i>&nbsp;&nbsp;{{msg.status | status}}
+                            </div>
                         </div>
 
                         <div class="col-md-8" ng-hide="editData.id==msg.id">

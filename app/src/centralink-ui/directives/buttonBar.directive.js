@@ -1,4 +1,4 @@
-var uiModule = require('./_index');
+var uiModule = require('../_index');
 
 uiModule.directive('buttonBar',getButtonBar);
 

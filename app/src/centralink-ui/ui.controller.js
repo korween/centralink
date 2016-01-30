@@ -3,6 +3,9 @@ var uiModule = require('./_index');
 uiModule.controller('uiController',uiController);
 
 function uiController($scope) {
+    console.log('UI Controller loaded')
+
+
     $scope.editMode=false;
     $scope.categories=['events','communication','special','misc'];
     $scope.editData={};

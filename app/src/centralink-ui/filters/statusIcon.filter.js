@@ -1,14 +1,14 @@
-var uiModule = require('./_index');
+var uiModule = require('../_index');
 
-uiModule.filter('status', function() {
+uiModule.filter('statusIcon', function() {
     return function(input) {
         switch(input) {
             case 'waiting':
-                return 'Attente'
+                return 'fui-time'
             case 'sent':
-                return 'Envoyé'
+                return 'fui-check-circle'
             case 'rejected':
-                return 'Rejeté'
+                return 'fui-cross-circle'
             default:
                 return 'Inconnu'
         }

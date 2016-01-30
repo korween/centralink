@@ -4,7 +4,7 @@
  * License: MIT
  */
 
-var uiModule = require('./_index');
+var uiModule = require('../_index');
 
 
 uiModule.constant('msdElasticConfig', {

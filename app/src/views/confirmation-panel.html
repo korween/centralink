@@ -6,12 +6,8 @@
                 <p>{{confirmationMsg}}</p>
         </div>
         <div class="pull-down-container">
-                <button class="btn btn-default pull-right" ng-click="confirmationMsg[0].action">{{confirmationButtons[0].text}}</button>
-                <button class="btn btn-danger pull-right" ng-click="confirmationMsg[1].action">{{confirmationButtons[1].text}}</button>
+                <button class="btn btn-default pull-right" ng-click="this[confirmationButtons[1].action](param)">{{confirmationButtons[1].text}}</button>
+                <button class="btn btn-danger pull-right" ng-click="this[confirmationButtons[0].action](param)">{{confirmationButtons[0].text}}</button>
         </div>
-
-
-
-
 
 </div>
