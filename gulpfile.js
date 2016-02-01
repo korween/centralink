@@ -22,6 +22,7 @@ var server = lr();
 var vendorJS = [
     './node_modules/angular/angular.min.js',
     './node_modules/angular-ui-router/release/angular-ui-router.min.js',
+    './node_modules/angular-cookies/angular-cookies.min.js',
     './node_modules/angular-ui-bootstrap/ui-bootstrap.min.js'
 ];
 
@@ -35,7 +36,8 @@ var vendorCSS = [
 /* Vendor assets are copied as is into dist/assets/ */
 
 var vendorAssets = [
-    './node_modules/flat-ui/fonts/**/*'
+    './node_modules/flat-ui/fonts/**/*',
+    './app/vendor/images/**/*'
 ]
 
 /* This part looks hackish but it's actually pretty clean for what it does */

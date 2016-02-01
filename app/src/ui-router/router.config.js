@@ -6,8 +6,6 @@ function setupRouter($stateProvider, $urlRouterProvider) {
     console.log('Router loaded')
 
 
-    $urlRouterProvider.otherwise("/notifications");
-
     $stateProvider
         .state('default', {
             url:'/'
@@ -27,4 +25,7 @@ function setupRouter($stateProvider, $urlRouterProvider) {
             templateUrl: "views/centralinks.html",
             data: { access: 'user' }
         });
+
+    $urlRouterProvider.otherwise("/notifications");
+
 }

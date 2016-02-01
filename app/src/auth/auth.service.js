@@ -1,8 +1,8 @@
 var authModule = require('./_index');
 
-authModule.factory('authService',getAuthService);
+authModule.factory('authService',['$http',getAuthService]);
 
-function getAuthService() {
+function getAuthService($http) {
 
     var service = {
         'login':login,
@@ -24,13 +24,26 @@ function getAuthService() {
 
     }
 
-    function authorize() {
-        console.log('yolo');
-        return true;
+    function authorize(accessLevel) {
+        if(accessLevel=='admin') {
+            console.log('admin access');
+            return false;
+        }
+        else if(accessLevel=='user') {
+            console.log('user access');
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     function login(username, password) {
-
+        var tmpBaseUrl='http://localhost:9103/api/login';
+        var data = {'login':'test','password':'password'}
+        $http.post(tmpBaseUrl,data,function(err,data) {
+            console.log(err,data);
+        })
     }
 
     function logout() {

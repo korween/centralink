@@ -1,24 +1,15 @@
-var authModule = require('./_index');
+var authModule = require('./../ui-router/_index');
 
-//authModule.run(['$rootScope','$state','$stateParams',authRunner]);
+authModule.run(['$rootScope','$state','authService',routeStateMonitor]);
 
-/*function authRunner($rootScope,$state,$stateParams,authService) {
-    //var Auth = new authService();
-
-    console.log('Router init done');
-*/
-authModule.run(['$rootScope', '$state', '$stateParams', 'authService', routeStateMonitor]);
-
-function routeStateMonitor($rootScope, $state, $stateParams, authService) {
-        console.log('Auth service loaded')
-
-        console.log($state,$stateParams);
-
-        $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
-            $rootScope.toState = toState;
-            $rootScope.toStateParams = toStateParams;
-            console.log("test");
-            //Authorizer.authorize();
+function routeStateMonitor($rootScope,$state,authService) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams, fromState, fromStateParams) {
+            if(!authService.authorize(toState.data.access)) {
+                event.preventDefault();
+                $rootScope.toState = toState;
+                $rootScope.toStateParams = toStateParams;
+                $state.go('login');
+            }
         });
 }
 
