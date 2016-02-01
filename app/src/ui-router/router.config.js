@@ -8,7 +8,8 @@ function setupRouter($stateProvider, $urlRouterProvider) {
 
     $stateProvider
         .state('default', {
-            url:'/'
+            url:'/',
+            data: { access: 'all' }
         })
         .state('login', {
             url: "/login",

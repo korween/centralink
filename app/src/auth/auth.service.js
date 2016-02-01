@@ -1,8 +1,8 @@
 var authModule = require('./_index');
 
-authModule.factory('authService',['$http',getAuthService]);
+authModule.factory('authService',['$rootScope','$http','$state','$cookies',getAuthService]);
 
-function getAuthService($http) {
+function getAuthService($rootScope,$http,$state,$cookies) {
 
     var service = {
         'login':login,
@@ -15,39 +15,136 @@ function getAuthService($http) {
     return service;
 
     //////////////////////////////////////////////
+    /* Route declaration                        */
+
+    function resolver() {
+        var resolve = {
+            'login': '/api/login/',
+            'account':'/api/my_account'
+        }
+        return resolve;
+
+    }
+
+    //////////////////////////////////////////////
+    /* Login functions                          */
 
     function isLoggedIn() {
 
     }
 
-    function checkLogin() {
 
+    function checkLogin(cb) {
+        var r = new resolver();
+        $http.get(r.account).then(function(data) {
+            cb(false);
+        },function(err) {
+            cb(true);
+        });
     }
 
-    function authorize(accessLevel) {
-        if(accessLevel=='admin') {
-            console.log('admin access');
-            return false;
+
+    function authorize(accessLevel,callback) {
+        checkLogin(function(err) {
+            if(err) {
+                $cookies.remove('centralink-remember');
+                rootScopeDisconnect();
+                callback(false);
+            }
+
+            var cookie = $cookies.get('centralink-remember');
+            if (cookie) {
+                var data = cookie.split('#');
+                rootScopeConnect(data[0], data[1]);
+            }
+
+            /* --- Admin auth level --- */
+            if (accessLevel == 'admin') {
+                // TODO
+                console.log('admin access');
+                callback(false);
+            }
+            /* --- Used auth level  --- */
+            else if (accessLevel == 'user' && $rootScope.connected) {
+                callback(true);
+            }
+            /* --- No auth required --- */
+            else if (accessLevel == 'all') {
+                console.log('all access level')
+                callback(true);
+            }
+            /* --- Not authorized   --- */
+            else {
+                callback(false);
+            }
+        });
+    }
+
+
+    function rootScopeConnect(login,roles) {
+        $rootScope.connected = true;
+        $rootScope.login = login;
+        $rootScope.permissions = roles;
+    }
+
+    function rootScopeDisconnect() {
+        $rootScope.connected = false;
+        $rootScope.login = null;
+        $rootScope.permissions = null;
+    }
+
+
+    function login(username, password, remember) {
+        console.log('login triggered')
+        if(remember)
+            $rootScope.remember = true;
+
+        var r = new resolver();
+        var data = {'password':password};
+        $http.post(r.login + username,data).then(loginSuccess,handleLoginError);
+    }
+
+
+    function loginSuccess(res) {
+        console.log('login success')
+        if($rootScope.remember) {
+            $cookies.put('centralink-remember', res.data.login + '#' + res.data.roles);
         }
-        else if(accessLevel=='user') {
-            console.log('user access');
-            return false;
+
+        rootScopeConnect(res.data.login,res.data.roles);
+
+        var prevState = $rootScope.toState;
+        $rootScope.toState = null;
+        if(prevState && prevState!='login') {
+            $state.go(prevState);
         }
         else {
-            return true;
+            $state.go('notifications');
         }
+        return true;
     }
 
-    function login(username, password) {
-        var tmpBaseUrl='http://localhost:9103/api/login';
-        var data = {'login':'test','password':'password'}
-        $http.post(tmpBaseUrl,data,function(err,data) {
-            console.log(err,data);
-        })
-    }
 
     function logout() {
-
+        var r = new resolver();
+        $http.delete(r.login).then(logoutSuccess,handleLoginError);
     }
+
+
+    function logoutSuccess() {
+        $state.go('login');
+        $rootScope.connected = false;
+        $rootScope.login = '';
+    }
+
+    ///////////////////////////////////////////////
+    /* Error collection point                    */
+
+
+    function handleLoginError(err) {
+        console.log("ERROR",err);
+        // Insert toast here
+    }
+
 
 }
