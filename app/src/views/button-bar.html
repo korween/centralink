@@ -1,11 +1,11 @@
-<edit-form ng-show="editData.id==msg.id"></edit-form>
-<div ng-hide="editData.title==msg.id">
+<edit-form ng-show="editData._id==msg._id"></edit-form>
+<div ng-hide="editData.title==msg._id">
     <button class="btn btn-info pull-right"
             ng-show="msg.status!='sent' && !editMode"
             ng-click="setEditMode(true,$index)"><i class="fui-new"></i></button>
 </div>
 
-<div ng-show="editData.id==msg.id">
+<div ng-show="editData._id==msg._id">
     <button class="btn btn-warning pull-right"
             ng-click="setEditMode(false)"><i class="fui-cross"></i></button>
     <button class="btn btn-success pull-right spaced"

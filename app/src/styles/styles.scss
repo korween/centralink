@@ -46,6 +46,40 @@
   width: 0px;
 }
 
+.new-message {
+  text-align:center;
+
+  -webkit-transition: all ease 1s;
+  -moz-transition: all ease 1s;
+  -o-transition: all ease 1s;
+  transition: all ease 1s;
+
+  cursor:pointer;
+}
+
+.new-message:hover {
+  height:100px;
+  p {
+    margin-top:0px;
+  }
+}
+
+.new-message:not(:hover) {
+  background-color:lighten(#3498db,20%);
+  opacity:0.3;
+  text-align:center;
+  margin-top:-10px;
+  margin-bottom:5px;
+
+  height:50px;
+  p {
+    margin-top:-20px;
+    color: #34495E;
+  }
+}
+
+
+
 // Styles relative to auth page
 
 @import 'partials/auth';

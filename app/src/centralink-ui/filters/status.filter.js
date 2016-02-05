@@ -7,8 +7,12 @@ uiModule.filter('status', function() {
                 return 'Attente'
             case 'sent':
                 return 'Envoyé'
-            case 'rejected':
+            case 'success':
+                return 'Validé'
+            case 'failure':
                 return 'Rejeté'
+            case 'new':
+                return 'Nouveau'
             default:
                 return 'Inconnu'
         }

@@ -19,11 +19,13 @@ function setupRouter($stateProvider, $urlRouterProvider) {
         .state('notifications', {
             url: "/notifications",
             templateUrl: "views/notifications.html",
+            controller: 'uiController',
             data: { access: 'user' }
         })
         .state('centralinks', {
             url: "/centralinks",
             templateUrl: "views/centralinks.html",
+            controller: 'uiController',
             data: { access: 'user' }
         });
 
