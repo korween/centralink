@@ -1,0 +1,20 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Centralinks</a>
+        <a class="btn btn-navbar" data-target=".navbar-responsive-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse">
+        <ul class="nav navbar-nav">
+            <li ui-sref-active="active"><a ui-sref="notifications" >Notifications&nbsp;&nbsp;&nbsp;<span class="navbar-new">5</span></a></li>
+            <li ui-sref-active="active"><a ui-sref="centralinks">Centralinks</a></li>
+            <li ui-sref-active="active" ng-show="$root.permissions"><a ui-sref="administration">Administration</a></li>
+        </ul>
+        <div class="navbar-right" ng-controller="AuthController">
+            <a class="btn btn-default" ng-click="signout()">Se déconnecter</a>
+        </div>
+    </div>
+</nav>

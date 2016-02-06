@@ -1,0 +1,15 @@
+<div ng-show="confirmationMsg!=''">
+        <div class="overlay" ></div>
+        <div class="panel panel-default confirmation-panel">
+                <div class="panel-heading">Confirmation requise</div>
+
+                <div class="panel-body">
+                        <p>{{confirmationMsg}}</p>
+                </div>
+                <div class="pull-down-container">
+                        <button class="btn btn-default pull-right" ng-click="this[confirmationButtons[1].action](param)">{{confirmationButtons[1].text}}</button>
+                        <button class="btn btn-danger pull-right" ng-click="this[confirmationButtons[0].action](param)">{{confirmationButtons[0].text}}</button>
+                </div>
+
+        </div>
+</div>

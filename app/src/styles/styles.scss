@@ -1,3 +1,85 @@
-.test {
-  background-color:red;
+.subdate {
+  color: #BDC3C7;
+  padding-top: -0.5em;
+  margin-top: -0.5em;
+  font-size: 0.8em;
 }
+.justify {
+  text-align: justify;
+}
+.block {
+  width: 8vw;
+  opacity:0.8;
+}
+.spaced {
+  margin-right: 4px;
+}
+
+.overlay {
+  position:fixed;
+  top: 0;
+  left:0;
+  z-index:50;
+  background-color: rgba(#3498db,0.7);
+  width: 100vw;
+  height: 100vh;
+}
+
+.confirmation-panel {
+  position:absolute;
+  width: 25vw;
+  height: 30vh;
+  left: 25vw;
+  top: 20vh;
+  z-index:51;
+}
+.pull-down-container {
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
+
+.bottom_aligner {
+  display: inline-block;
+  height: 100%;
+  vertical-align: bottom;
+  width: 0px;
+}
+
+.new-message {
+  text-align:center;
+
+  -webkit-transition: all ease 1s;
+  -moz-transition: all ease 1s;
+  -o-transition: all ease 1s;
+  transition: all ease 1s;
+
+  cursor:pointer;
+}
+
+.new-message:hover {
+  height:100px;
+  p {
+    margin-top:0px;
+  }
+}
+
+.new-message:not(:hover) {
+  background-color:lighten(#3498db,20%);
+  opacity:0.3;
+  text-align:center;
+  margin-top:-10px;
+  margin-bottom:5px;
+
+  height:50px;
+  p {
+    margin-top:-20px;
+    color: #34495E;
+  }
+}
+
+
+
+// Styles relative to auth page
+
+@import 'partials/auth';

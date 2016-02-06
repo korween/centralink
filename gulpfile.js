@@ -21,20 +21,25 @@ var server = lr();
 
 var vendorJS = [
     './node_modules/angular/angular.min.js',
-    './node_modules/angular-ui-router/release/angular-ui-router.min.js'
+    './node_modules/angular-ui-router/release/angular-ui-router.min.js',
+    './node_modules/angular-cookies/angular-cookies.min.js',
+    './node_modules/angular-sanitize/angular-sanitize.min.js',
+    './node_modules/angularjs-datepicker/dist/angular-datepicker.min.js'
 ];
 
 /* Vendor CSS files are minified into vendor.css and placed into dist/assets/css/vendor.css */
 
 var vendorCSS = [
-    './node_modules/flat-ui/bootstrap/css/bootstrap.css',
+    './node_modules/bootstrap/dist/css/bootstrap.css',
+    './node_modules/angularjs-datepicker/dist/angular-datepicker.min.css'
     //'./node_modules/flat-ui/css/flat-ui.css'
 ];
 
 /* Vendor assets are copied as is into dist/assets/ */
 
 var vendorAssets = [
-    './node_modules/flat-ui/fonts/**/*'
+    './node_modules/flat-ui/fonts/**/*',
+    './app/vendor/images/**/*'
 ]
 
 /* This part looks hackish but it's actually pretty clean for what it does */
@@ -140,6 +145,6 @@ gulp.task('default', function() {
 
     gulp.watch('app/src/**', ['scripts'])
     gulp.watch('app/vendor/variables.less', ['flatUILess'])
-    gulp.watch('app/css/**', ['styles'])
+    gulp.watch('app/src/styles/**', ['styles'])
     gulp.watch('app/**/*.html', ['html'])
 })

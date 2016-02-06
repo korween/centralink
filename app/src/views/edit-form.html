@@ -1,0 +1,47 @@
+<form>
+    <div class="col-md-8">
+        <div><input type="text" class="form-control" ng-model="editData.title" placeholder="Titre"/></div>
+        <br>
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <div class="btn btn-primary"
+                     ng-repeat="item in categories"
+                     ng-class="(item==editData.category)?'active':''"
+                     ng-click="selectCategory($index)">{{item | category}}
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <datepicker date-format="dd-MM-yyyy">
+                    <input class='form-control' ng-model="editData.date" type="text" placeholder="Date d'envoi"/>
+                </datepicker>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group">
+                    <div class="col-md-12">
+                    <label>
+                        <input type="checkbox" ng-model="editData.centrale" data-toggle="checkbox" class="custom-checkbox">
+                        Envoyer à Centrale
+                    </label>
+                    </div>
+                    <div class="col-md-12">
+                    <label>
+                        <input type="checkbox" ng-model="editData.iteem" data-toggle="checkbox" class="custom-checkbox">
+                        Envoyer à l'Iteem
+                    </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div>
+            <p class="justify">
+            <textarea msd-elastic="\n" class="form-control" ng-model="editData.content" placeholder="Contenu"/>
+            </p>
+        </div>
+
+
+    </div>
+</form>
