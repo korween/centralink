@@ -8,7 +8,7 @@ function authController($scope,$rootScope,authService) {
 
     $scope.signin = signin;
     $scope.signout = signout;
-    $scope.remember = false;
+    $scope.remember = true;
 
 
     function signin() {

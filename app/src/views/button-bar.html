@@ -2,7 +2,7 @@
 <div ng-hide="editData.title==msg._id">
     <button class="btn btn-info pull-right"
             ng-show="msg.status!='sent' && !editMode"
-            ng-click="setEditMode(true,$index)"><i class="fui-new"></i></button>
+            ng-click="setEditMode(true,msg._id)"><i class="fui-new"></i></button>
 </div>
 
 <div ng-show="editData._id==msg._id">

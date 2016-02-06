@@ -4,14 +4,8 @@
     <div class="col-md-10 col-md-offset-1">
         <div class="panel">
             <div class="panel-body">
-
-                <div class="panel panel-primary palette palette-peter-river new-message" ng-hide="editMode" ng-click="newMessage()">
-                    <div class="panel-body">
-                        <p>Nouveau message</p>
-                    </div>
-                </div>
                 <!-- repeat for each centralink -->
-                <div class="panel panel-default" ng-repeat="msg in centralinks | filter: {author:$root.login} | orderBy: 'date':reverse" ng-click="expandPost(msg._id)">
+                <div class="panel panel-default" ng-repeat="msg in centralinks | orderBy: 'date':reverse" ng-click="expandPost(msg._id)">
                     <div class="panel-body">
                         <div class="col-md-1">
                             <div class="block pull-right" ng-class="getClassFromStatus(msg.status)">
@@ -21,7 +15,7 @@
 
                         <div class="col-md-8" ng-hide="editData._id==msg._id">
                             <div><b>{{msg.title | uppercase}}</b></div>
-                            <div class="subdate">Date d'envoi: {{msg.date | date:'dd-MM-yyyy'}}</div>
+                            <div class="subdate">Auteur: {{msg.author}} | Date d'envoi: {{msg.date | date}}</div>
                             <div>
                                 <p class="justify">
                                     <span ng-bind-html="msg.content | summary | linky | formatText"></span>
@@ -30,14 +24,11 @@
                                 </p>
                             </div>
                         </div>
-                        <button-bar></button-bar>
+                        <button-bar-admin></button-bar-admin>
                     </div>
                 </div>
                 <!-- end repeat -->
-
                 <confirmation-panel></confirmation-panel>
-
-
             </div>
         </div>
     </div>

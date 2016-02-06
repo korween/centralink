@@ -22,6 +22,12 @@ function setupRouter($stateProvider, $urlRouterProvider) {
             controller: 'uiController',
             data: { access: 'user' }
         })
+        .state('administration', {
+            url: "/admin",
+            templateUrl: "views/administration.html",
+            controller: 'adminController',
+            data: { access: 'MODERATOR' }
+        })
         .state('centralinks', {
             url: "/centralinks",
             templateUrl: "views/centralinks.html",

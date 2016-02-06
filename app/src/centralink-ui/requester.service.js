@@ -7,7 +7,9 @@ function getRequester($http) {
         'getPosts': getPosts,
         'deletePost': deletePost,
         'savePost': savePost,
-        'addPost': addPost
+        'addPost': addPost,
+        'validatePost': validatePost,
+        'rejectPost': rejectPost
     }
 
     return service;
@@ -32,9 +34,11 @@ function getRequester($http) {
 
     /* :::::::::::::::::::::::::::::::::::::::: */
 
-    function Resolver() {
+    function Resolver(id) {
         return {
-            'posts': '/api/post/'
+            'posts': '/api/post/',
+            'accept': '/api/moderation/'+id+'/validat/',
+            'reject': '/api/moderation/'+id+'/reject/'
         }
     }
 
@@ -62,6 +66,16 @@ function getRequester($http) {
     function deletePost(id, cb) {
         var r = new Resolver();
         del_request(r.posts + id, cb);
+    }
+
+    function validatePost(id, cb) {
+        var r = new Resolver(id);
+        post_request(r.accept,cb);
+    }
+
+    function rejectPost(id, cb) {
+        var r = new Resolver(id);
+        post_request(r.reject,cb);
     }
 
     /* :::::::::::::::::::::::::::::::::::::::: */

@@ -13,6 +13,6 @@ uiModule.filter('xtend', function() {
             return '\n'+spacedInput;
         }
         else
-            return input;
+            return '';
     };
 });

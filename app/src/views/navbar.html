@@ -11,7 +11,7 @@
         <ul class="nav navbar-nav">
             <li ui-sref-active="active"><a ui-sref="notifications" >Notifications&nbsp;&nbsp;&nbsp;<span class="navbar-new">5</span></a></li>
             <li ui-sref-active="active"><a ui-sref="centralinks">Centralinks</a></li>
-            <li ui-sref-active="active"><a href="#">Administration</a></li>
+            <li ui-sref-active="active" ng-show="$root.permissions"><a ui-sref="administration">Administration</a></li>
         </ul>
         <div class="navbar-right" ng-controller="AuthController">
             <a class="btn btn-default" ng-click="signout()">Se déconnecter</a>

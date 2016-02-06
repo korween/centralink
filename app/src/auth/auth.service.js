@@ -59,10 +59,12 @@ function getAuthService($rootScope,$http,$state,$cookies) {
             }
 
             /* --- Admin auth level --- */
-            if (accessLevel == 'admin') {
+            if (accessLevel == 'MODERATOR') {
                 // TODO
-                console.log('admin access');
-                callback(false);
+                if(accessLevel==$rootScope.permissions)
+                    callback(true);
+                else
+                    callback(false);
             }
             /* --- Used auth level  --- */
             else if (accessLevel == 'user' && $rootScope.connected) {
@@ -85,6 +87,7 @@ function getAuthService($rootScope,$http,$state,$cookies) {
         $rootScope.connected = true;
         $rootScope.login = login;
         $rootScope.permissions = roles;
+        console.log(roles);
     }
 
     function rootScopeDisconnect() {
@@ -95,7 +98,6 @@ function getAuthService($rootScope,$http,$state,$cookies) {
 
 
     function login(username, password, remember) {
-        console.log('login triggered')
         if(remember)
             $rootScope.remember = true;
 

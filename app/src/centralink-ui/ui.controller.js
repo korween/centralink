@@ -1,14 +1,15 @@
 var uiModule = require('./_index');
 
-uiModule.controller('uiController',['$scope','rq',uiController]);
+uiModule.controller('uiController',['$rootScope','$scope','rq',uiController]);
 
-function uiController($scope,rq) {
+function uiController($rootScope,$scope,rq) {
 
     $scope.editMode=false;
     $scope.categories=['Evenements','Communication','Exceptionnel','Divers'];
     $scope.editData={};
     $scope.confirmationMsg="";
     $scope.centralinks = [];
+    $scope.reverse = true;
     /*
     $scope.centralinks = [
         {'id':1,'title':'Message de test','category':'events','status':'waiting','date': new Date(), 'content':'Lorem ipsum dolor sit amet, no facer abhorreant est. Ius vidit ubique prompta id. Modus ludus alterum id nec, hinc duis explicari ad mei. Id laudem offendit sea, magna alterum sadipscing vix in, illud admodum ea sit.','expand':false},
@@ -26,12 +27,11 @@ function uiController($scope,rq) {
     $scope.trashConfirm = trashConfirm;
     $scope.trashCancel = trashCancel;
 
+
     /* :::::::::::::   INIT   ::::::::::::::::: */
 
-
-
     (function() {
-        loadPosts();
+        loadPosts($rootScope.login);
     })();
 
 
@@ -42,8 +42,9 @@ function uiController($scope,rq) {
             '_id': Math.random().toString(36).substring(3),
             'title':'',
             'category':'',
+            'author':$rootScope.login,
             'status':'new',
-            'date': new Date(),
+            'date': ''      ,
             'content':'',
             'expand':false,
             'centrale': true,
@@ -51,10 +52,16 @@ function uiController($scope,rq) {
         };
     }
 
-    function loadPosts() {
+    function formatDate(date) {
+        return ("0"+date.getDay()).split(-2)+"-"+("0"+(date.getMonth()+1).toString()).split(-2)+"-"+date.getFullYear();
+    }
+
+
+    function loadPosts(user) {
+        if(!user) return;
         rq.getPosts(function(res) {
             for (var el in res.data) {
-                res.data[el].expand=false;
+                    res.data[el].expand = false;
             }
             $scope.centralinks = res.data;
         });
@@ -66,9 +73,16 @@ function uiController($scope,rq) {
     }
 
 
-    function setEditMode(status,index) {
-        if(status) {
-            angular.copy($scope.centralinks[index],$scope.editData);
+    function setEditMode(status,id) {
+        var selected=null;
+        for (var c in $scope.centralinks) {
+            if($scope.centralinks[c]._id==id)
+                selected=$scope.centralinks[c];
+        }
+        if(status && selected) {
+            angular.copy(selected,$scope.editData);
+            var date = new Date($scope.editData.date);
+            $scope.editData.date=formatDate(date);
             $scope.editMode=true;
         }
         else {
@@ -94,23 +108,30 @@ function uiController($scope,rq) {
     }
 
 
-    function expandPost(index) {
-        $scope.centralinks[index].expand^=true;
+    function expandPost(id) {
+        for (var c in $scope.centralinks) {
+            if($scope.centralinks[c]._id==id)
+                $scope.centralinks[c].expand^=true;
+        }
         return true;
     }
 
 
     function newMessage() {
         $scope.centralinks.unshift(getNewPostTemplate());
+        $scope.reverse = false;
         $scope.editData = $scope.centralinks[0];
         $scope.editMode=true;
     }
 
 
     function save() {
+        $scope.reverse = true;
+        var date = $scope.editData.date.split('-');
+        $scope.editData.date = new Date(date[2], date[1], date[0]);
+
         if ($scope.editData.status == 'new') {
             $scope.editData.status = 'waiting';
-
             rq.addPost($scope.editData,saveSuccess);
         }
         else {
@@ -125,7 +146,7 @@ function uiController($scope,rq) {
         else console.log(res);
         $scope.editData={};
         $scope.editMode=false;
-        loadPosts();
+        loadPosts($rootScope.login);
     }
 
 
@@ -140,10 +161,11 @@ function uiController($scope,rq) {
 
     function trashConfirm() {
         $scope.confirmationMsg='';
+        $scope.editMode=false;
         rq.deletePost($scope.editData._id,function(res) {
             if(res.status==200)
                 console.log('OK');
-            loadPosts();
+            loadPosts($rootScope.login);
         });
 
     }
