@@ -14,7 +14,9 @@
         <br>
         <div class="row">
             <div class="col-md-4">
-                <datepicker date-format="dd-MM-yyyy">
+                <datepicker date-format="dd-MM-yyyy"
+                            date-min-limit="{{dateProvider.minDate()}}"
+                            date-max-limit="{{dateProvider.maxDate()}}">
                     <input class='form-control' ng-model="editData.date" type="text" placeholder="Date d'envoi"/>
                 </datepicker>
             </div>

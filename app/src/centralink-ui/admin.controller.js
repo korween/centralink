@@ -11,11 +11,12 @@ function adminController($scope,rq) {
 
     $scope.getClassFromStatus = getClassFromStatus;
     $scope.expandPost = expandPost;
+    $scope.validate = validate;
+    $scope.reject = reject;
 
 
 
-
-    /* :::::::::::::   INIT   ::::::::::::::::: */
+    /* :::::::::::::  INIT   ::::::::::::::::: */
 
     (function() {
         loadPosts();
@@ -36,11 +37,11 @@ function adminController($scope,rq) {
         switch (status) {
             case 'waiting':
                 return 'palette palette-sun-flower'
-            case 'sent':
+            case 'success':
                 return 'palette palette-emerald'
             case 'new':
                 return 'palette palette-belize-hole'
-            case 'rejected':
+            case 'failure':
                 return 'palette palette-pomegranate'
         }
     }
@@ -54,14 +55,17 @@ function adminController($scope,rq) {
     }
 
     function validate(id) {
-        for (var c in $scope.centralinks) {
-            if($scope.centralinks[c]._id==id)
-                $scope.centralinks[c].expand^=true;
-        }
+        rq.validatePost(id,function(res) {
+            loadPosts();
+            console.log(res);
+        });
     }
 
     function reject(id) {
-
+        rq.rejectPost(id,function(res) {
+            loadPosts();
+            console.log(res);
+        })
     }
 
 }

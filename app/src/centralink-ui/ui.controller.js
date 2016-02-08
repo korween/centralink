@@ -18,7 +18,12 @@ function uiController($rootScope,$scope,rq) {
     */
 
     $scope.getClassFromStatus = getClassFromStatus;
+    $scope.dateProvider={
+        'minDate':getMinDate,
+        'maxDate':getMaxDate
+    }
     $scope.expandPost = expandPost;
+    $scope.keepNewOnTop = keepNewOnTop;
     $scope.newMessage = newMessage;
     $scope.selectCategory = selectCategory;
     $scope.setEditMode = setEditMode;
@@ -44,7 +49,7 @@ function uiController($rootScope,$scope,rq) {
             'category':'',
             'author':$rootScope.login,
             'status':'new',
-            'date': ''      ,
+            'date': '',
             'content':'',
             'expand':false,
             'centrale': true,
@@ -72,6 +77,15 @@ function uiController($rootScope,$scope,rq) {
         $scope.editData.category=$scope.categories[$index];
     }
 
+    function keepNewOnTop(post) {
+        if(post.status=="new") {
+            return 0;
+        }
+        else {
+            return post.date;
+        }
+    }
+
 
     function setEditMode(status,id) {
         var selected=null;
@@ -93,16 +107,29 @@ function uiController($rootScope,$scope,rq) {
         }
     }
 
+    function getMinDate() {
+        var date = new Date();
+        date = new Date(date.getTime() + 1000*24*3600);
+        console.log(date);
+        return date.toString();
+    }
+
+    function getMaxDate() {
+        var date = new Date();
+        date = new Date(date.getTime() + 21*1000*24*3600);
+        console.log(date);
+        return date.toString();
+    }
 
     function getClassFromStatus(status) {
         switch (status) {
             case 'waiting':
                 return 'palette palette-sun-flower'
-            case 'sent':
+            case 'success':
                 return 'palette palette-emerald'
             case 'new':
                 return 'palette palette-belize-hole'
-            case 'rejected':
+            case 'failure':
                 return 'palette palette-pomegranate'
         }
     }
