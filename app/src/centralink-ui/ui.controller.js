@@ -63,7 +63,6 @@ function uiController($rootScope,$scope,rq) {
 
 
     function loadPosts(user) {
-        if(!user) return;
         rq.getPosts(function(res) {
             for (var el in res.data) {
                     res.data[el].expand = false;
@@ -110,14 +109,12 @@ function uiController($rootScope,$scope,rq) {
     function getMinDate() {
         var date = new Date();
         date = new Date(date.getTime() + 1000*24*3600);
-        console.log(date);
         return date.toString();
     }
 
     function getMaxDate() {
         var date = new Date();
         date = new Date(date.getTime() + 21*1000*24*3600);
-        console.log(date);
         return date.toString();
     }
 

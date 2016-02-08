@@ -6,6 +6,8 @@ function authController($scope,$rootScope,authService) {
     $scope.login = "";
     $scope.password = "";
 
+    $rootScope.loginError = null;
+
     $scope.signin = signin;
     $scope.signout = signout;
     $scope.remember = true;
@@ -18,4 +20,6 @@ function authController($scope,$rootScope,authService) {
     function signout() {
         authService.logout();
     }
+
+
 }

@@ -145,8 +145,12 @@ function getAuthService($rootScope,$http,$state,$cookies) {
 
 
     function handleLoginError(err) {
-        console.log("ERROR",err);
-        // Insert toast here
+        $rootScope.loginError = err.data.message;
+        setTimeout(function() {
+            $rootScope.$apply(function() {
+                $rootScope.loginError = null;
+            });
+        },2000);
     }
 
 
