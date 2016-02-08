@@ -70,12 +70,12 @@ function getRequester($http) {
 
     function validatePost(id, cb) {
         var r = new Resolver(id);
-        post_request(r.accept,cb);
+        post_request(r.accept,null,cb);
     }
 
     function rejectPost(id, cb) {
         var r = new Resolver(id);
-        post_request(r.reject,cb);
+        post_request(r.reject,null,cb);
     }
 
     /* :::::::::::::::::::::::::::::::::::::::: */

@@ -17,6 +17,7 @@ function getAuthService($rootScope,$http,$state,$cookies) {
     //////////////////////////////////////////////
     /* Route declaration                        */
 
+
     function resolver() {
         var resolve = {
             'login': '/api/login/',
