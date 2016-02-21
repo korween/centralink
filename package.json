@@ -9,7 +9,6 @@
     "angular-sanitize": "^1.4.9",
     "angular-ui-bootstrap": "^0.14.3",
     "angular-ui-router": "0.2.15",
-    "angularjs-datepicker": "^0.2.16",
     "bootstrap": "^3.3.6",
     "browserify": "^12.0.1",
     "bulk-require": "^0.2.1",
@@ -26,8 +25,6 @@
     "gulp-ng-annotate": "^1.1.0",
     "gulp-sass": "^2.1.1",
     "gulp-uglify": "^1.5.1",
-    "lr": "^0.1.15",
-    "tiny-lr": "^0.2.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },

@@ -1,28 +1,113 @@
-.uib-datepicker .uib-title {
-  width: 100%;
+@import 'icon';
+
+$width: 300px;
+$bg-color:#ecf0f1;
+$contour: #2980b9;
+$contour-bg: lighten($bg-color,20);
+
+$active:#2c3e50;
+$inactive:lighten($active,40);
+
+body {
+  font-family: "Helvetic Neue", Helvetica, Arial;
 }
 
-.uib-day button, .uib-month button, .uib-year button {
-  min-width: 100%;
+calendar {
+  @include calendar(10px,$contour);
+  transition: all 500ms;
+  cursor:pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &:hover {
+    transform: translate(0,3px);
+    opacity:0.8;
+  }
 }
 
-.uib-datepicker-popup.dropdown-menu {
+.dp-calendar {
+  border: 1px solid $inactive;
+  width: $width;
+  height:auto;
+  background: $bg-color;
+  position:absolute;
+  top:-35px;
+  left:40px;
+  margin: $width/7;
+  z-index:1000;
+  .calendar-title {
+    text-align:center;
+    font-size:$width/14;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;
+    span {
+      color:$active;
+      pointer-events: none;
+      opacity:0.8;
+      text-transform: capitalize;
+    }
+    a {
+      text-decoration:none;
+      cursor:pointer;
+      width:10px;
+      &:hover {
+       opacity: 0.5;
+      }
+      &.left {
+        position:absolute;
+        left:0px;
+      }
+      &.right {
+        position:absolute;
+        right:$width/14;
+      }
+    }
+  }
+}
+
+.day {
+  width: $width/7.2;
+  float:left;
+  text-align:center;
+  cursor:pointer;
   display: block;
+  position:relative;
+  height: $width/7;
+  font-size: $width/15;
+  color: $active;
+  &:hover {
+    box-shadow: inset 0 0 0 2px $contour;
+    border-radius: $width/7;
+  }
+  .center {
+    line-height: $width/7;
+  }
+  &.disabled {
+    opacity: 0.1;
+    pointer-events: none;
+    &:hover {
+      box-shadow: none;
+    }
+  }
+  &.title {
+    color:$inactive;
+    pointer-events: none;
+    opacity:0.8;
+  }
 }
-
-.uib-button-bar {
-  padding: 10px 9px 2px;
+.date-today {
+  border-radius: $width/7;
+  background: $contour-bg;
 }
-
-.uib-left, .uib-right {
-  width: 100%
+.selected {
+  box-shadow: inset 0 0 0 3px $contour;
+  border-radius: $width/7;
 }
-
-
-.glyphicon.glyphicon-chevron-left {
-
-}
-
-.glyphicon.glyphicon-chevron-right {
-
+.otherMonth {
+  color:$inactive;
 }

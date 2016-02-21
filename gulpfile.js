@@ -5,33 +5,28 @@ var sass = require('gulp-sass');
 var less = require('gulp-less');
 var clean = require('gulp-clean');
 var refresh = require('gulp-livereload');
-var lr = require('tiny-lr');
 var minifyCSS = require('gulp-minify-css');
-var embedlr = require('gulp-embedlr');
 var bulkify = require('bulkify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 
-var server = lr();
-
 
 /* Vendor JS files are compiled and resolved by browserify */
 
 var vendorJS = [
-    './node_modules/angular/angular.min.js',
+    './node_modules/angular/angular.js',
     './node_modules/angular-ui-router/release/angular-ui-router.min.js',
     './node_modules/angular-cookies/angular-cookies.min.js',
     './node_modules/angular-sanitize/angular-sanitize.min.js',
-    './node_modules/angularjs-datepicker/dist/angular-datepicker.min.js'
+    './app/vendor/date-fr-FR.js'
 ];
 
 /* Vendor CSS files are minified into vendor.css and placed into dist/assets/css/vendor.css */
 
 var vendorCSS = [
     './node_modules/bootstrap/dist/css/bootstrap.css',
-    './node_modules/angularjs-datepicker/dist/angular-datepicker.min.css'
     //'./node_modules/flat-ui/css/flat-ui.css'
 ];
 
@@ -59,7 +54,6 @@ gulp.task('scripts', function() {
         .pipe(ngAnnotate()) // Then include angular dependencies
         .pipe(uglify())     // Then minify JS
         .pipe(gulp.dest('dist'))
-        .pipe(refresh(server))
 })
 
 
@@ -74,7 +68,6 @@ gulp.task('styles', function() {
         .pipe(sass())
         .pipe(minifyCSS())
         .pipe(gulp.dest('./dist/assets/css/'))
-        .pipe(refresh(server))
 })
 
 /*
@@ -95,7 +88,6 @@ gulp.task('flatUILess',function() {
         .pipe(less())
         .pipe(minifyCSS())
         .pipe(gulp.dest('./dist/assets/css/'))
-        .pipe(refresh(server))
 
     /* Answer: no idea. Gulp might use WriteFileSync after all :) */
 })
@@ -105,7 +97,6 @@ gulp.task('vendorCSS',function() {
         .pipe(concat('vendor.css'))
         .pipe(minifyCSS())
         .pipe(gulp.dest('./dist/assets/css/'))
-        .pipe(refresh(server))
     })
 
 gulp.task('vendorAssets',function() {
@@ -123,25 +114,16 @@ gulp.task('vendorAssets',function() {
     /* Yup */
 })
 
-gulp.task('lr-server', function() {
-    server.listen(35729, function(err) {
-        if(err) return console.log(err);
-    });
-})
-
 gulp.task('html', function() {
     gulp.src("app/src/index.html")
-        .pipe(embedlr())
         .pipe(gulp.dest('dist/'))
-        .pipe(refresh(server));
 
     gulp.src("app/src/views/**/*.html")
         .pipe(gulp.dest('dist/views/'))
-        .pipe(refresh(server));
 })
 
 gulp.task('default', function() {
-    gulp.run('flatUILess','vendorAssets','vendorCSS','vendorJS','lr-server', 'scripts', 'styles', 'html');
+    gulp.run('flatUILess','vendorAssets','vendorCSS','vendorJS', 'scripts', 'styles', 'html');
 
     gulp.watch('app/src/**', ['scripts'])
     gulp.watch('app/vendor/variables.less', ['flatUILess'])

@@ -2,8 +2,8 @@
 
 <div class="container-fluid">
     <div class="col-md-10 col-md-offset-1">
-        <div class="panel">
-            <div class="panel-body">
+        <div class="panel" >
+            <div class="panel-body" scroll="loadMore()">
 
                 <div class="panel panel-primary palette palette-peter-river new-message" ng-hide="editMode" ng-click="newMessage()">
                     <div class="panel-body">
@@ -11,7 +11,9 @@
                     </div>
                 </div>
                 <!-- repeat for each centralink -->
-                <div class="panel panel-default" ng-repeat="msg in centralinks | filter: {author:$root.login} | orderBy: keepNewOnTop:reverse" ng-click="expandPost(msg._id)">
+                <div class="panel panel-default"
+                     ng-repeat="msg in centralinks | filter: {author:$root.login} | orderBy: keepNewOnTop:reverse"
+                     ng-click="expandPost(msg._id)">
                     <div class="panel-body">
                         <div class="col-md-1">
                             <div class="block pull-right" ng-class="getClassFromStatus(msg.status)">

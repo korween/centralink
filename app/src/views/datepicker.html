@@ -1,0 +1,26 @@
+<calendar class="icon" ng-click="dateSelection = !dateSelection">
+    <em>{{selectedDay.toString('dddd')}}</em>
+    <strong>{{selectedDay.toString('MMMM').toUpperCase()}}</strong>
+    <span>{{selectedDay.toString('dd')}}</span>
+</calendar>
+
+<div class="dp-calendar" ng-show="dateSelection">
+    <div class="calendar-title">
+        <a class="left" ng-click="shiftMonth(-1)">◄</a>
+        <span>{{currentDate.toString('MMMM yyyy')}}</span>
+        <a class="right" ng-click="shiftMonth(1)">►</a>
+    </div>
+    <div class="day title" ng-repeat="d in getDays()">{{d}}</div>
+    <div class="day"
+         ng-class="{
+            'date-today':(day.equals(today)),
+            'selected':(day.equals(selectedDay)),
+            'disabled': (min!=null && day.compareTo(min)==-1) || (max!=null && day.compareTo(max)==1)
+         }"
+         ng-click="pick(day)"
+         ng-repeat="day in days track by $index" class="week">
+        <span class="center"
+              ng-class="{'otherMonth':!(day.getMonth()==currentDate.getMonth())}"
+             >{{day.getDate()}}</span>
+    </div>
+</div>

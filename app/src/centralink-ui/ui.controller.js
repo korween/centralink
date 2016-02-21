@@ -9,7 +9,9 @@ function uiController($rootScope,$scope,rq) {
     $scope.editData={};
     $scope.confirmationMsg="";
     $scope.centralinks = [];
+    $scope.moreToLoad = true;
     $scope.reverse = true;
+    $scope.selectedDay=Date.today();
     /*
     $scope.centralinks = [
         {'id':1,'title':'Message de test','category':'events','status':'waiting','date': new Date(), 'content':'Lorem ipsum dolor sit amet, no facer abhorreant est. Ius vidit ubique prompta id. Modus ludus alterum id nec, hinc duis explicari ad mei. Id laudem offendit sea, magna alterum sadipscing vix in, illud admodum ea sit.','expand':false},
@@ -18,12 +20,9 @@ function uiController($rootScope,$scope,rq) {
     */
 
     $scope.getClassFromStatus = getClassFromStatus;
-    $scope.dateProvider={
-        'minDate':getMinDate,
-        'maxDate':getMaxDate
-    }
     $scope.expandPost = expandPost;
     $scope.keepNewOnTop = keepNewOnTop;
+    $scope.loadMore = loadMorePosts;
     $scope.newMessage = newMessage;
     $scope.selectCategory = selectCategory;
     $scope.setEditMode = setEditMode;
@@ -32,13 +31,11 @@ function uiController($rootScope,$scope,rq) {
     $scope.trashConfirm = trashConfirm;
     $scope.trashCancel = trashCancel;
 
-
     /* :::::::::::::   INIT   ::::::::::::::::: */
 
     (function() {
         loadPosts($rootScope.login);
     })();
-
 
     /* :::::::::::::::::::::::::::::::::::::::: */
 
@@ -57,12 +54,7 @@ function uiController($rootScope,$scope,rq) {
         };
     }
 
-    function formatDate(date) {
-        return ("0"+date.getDay()).split(-2)+"-"+("0"+(date.getMonth()+1).toString()).split(-2)+"-"+date.getFullYear();
-    }
-
-
-    function loadPosts(user) {
+    function loadPosts() {
         rq.getPosts(function(res) {
             for (var el in res.data) {
                     res.data[el].expand = false;
@@ -71,6 +63,12 @@ function uiController($rootScope,$scope,rq) {
         });
     }
 
+    function loadMorePosts() {
+        $scope.moreToLoad=false;
+        /*$scope.$apply(function() {
+            $scope.moreToLoad=true;
+        })*/
+     }
 
     function selectCategory($index) {
         $scope.editData.category=$scope.categories[$index];
@@ -84,8 +82,7 @@ function uiController($rootScope,$scope,rq) {
             return post.date;
         }
     }
-
-
+    
     function setEditMode(status,id) {
         var selected=null;
         for (var c in $scope.centralinks) {
@@ -94,8 +91,7 @@ function uiController($rootScope,$scope,rq) {
         }
         if(status && selected) {
             angular.copy(selected,$scope.editData);
-            var date = new Date($scope.editData.date);
-            $scope.editData.date=formatDate(date);
+            $scope.selectedDay = new Date($scope.editData.date);
             $scope.editMode=true;
         }
         else {
@@ -104,18 +100,6 @@ function uiController($rootScope,$scope,rq) {
             $scope.editData={};
             $scope.editMode=false;
         }
-    }
-
-    function getMinDate() {
-        var date = new Date();
-        date = new Date(date.getTime() + 1000*24*3600);
-        return date.toString();
-    }
-
-    function getMaxDate() {
-        var date = new Date();
-        date = new Date(date.getTime() + 21*1000*24*3600);
-        return date.toString();
     }
 
     function getClassFromStatus(status) {
@@ -140,30 +124,27 @@ function uiController($rootScope,$scope,rq) {
         return true;
     }
 
-
     function newMessage() {
         $scope.centralinks.unshift(getNewPostTemplate());
         $scope.reverse = false;
+        $scope.editData.date=Date.today();
+        $scope.selectedDay = $scope.editData.date;
         $scope.editData = $scope.centralinks[0];
         $scope.editMode=true;
     }
 
-
     function save() {
         $scope.reverse = true;
-        var date = $scope.editData.date.split('-');
-        $scope.editData.date = new Date(date[2], date[1], date[0]);
+        $scope.editData.date = $scope.selectedDay;
 
         if ($scope.editData.status == 'new') {
             $scope.editData.status = 'waiting';
             rq.addPost($scope.editData,saveSuccess);
         }
         else {
-            console.log($scope.editData);
             rq.savePost($scope.editData._id,$scope.editData,saveSuccess);
         }
     }
-
 
     function saveSuccess(res) {
         if(res.status==200) console.log("ok");
@@ -173,7 +154,6 @@ function uiController($rootScope,$scope,rq) {
         loadPosts($rootScope.login);
     }
 
-
     function trash() {
         $scope.confirmationMsg="Voulez-vous vraiment supprimer le message "+$scope.editData.title+"?";
         $scope.confirmationButtons=[
@@ -181,7 +161,6 @@ function uiController($rootScope,$scope,rq) {
             {"text":"Annuler","action":"trashCancel"}
         ]
     }
-
 
     function trashConfirm() {
         $scope.confirmationMsg='';
@@ -194,11 +173,9 @@ function uiController($rootScope,$scope,rq) {
 
     }
 
-
     function trashCancel() {
         console.log('Call cancel called')
         $scope.confirmationMsg="";
         $scope.confirmationButtons=[];
     }
-    
 }
