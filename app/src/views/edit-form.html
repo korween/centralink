@@ -21,7 +21,7 @@
                 <label>
                     <input type="checkbox" ng-model="editData.centrale"
                            data-toggle="checkbox" class="custom-checkbox"
-                           ng-required="!(editData.centrale && editData.iteem)">
+                           ng-required="!(editData.centrale || editData.iteem)">
                     Envoyer à Centrale
                 </label>
                 </div>
@@ -29,7 +29,7 @@
                 <label>
                     <input type="checkbox" ng-model="editData.iteem"
                            data-toggle="checkbox" class="custom-checkbox"
-                           ng-required="!(editData.centrale && editData.iteem)">
+                           ng-required="!(editData.centrale || editData.iteem)">
                     Envoyer à l'Iteem
                 </label>
                 </div>
