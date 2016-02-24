@@ -1,3 +1,4 @@
+<form>
 <edit-form ng-show="editData._id==msg._id"></edit-form>
 <div ng-hide="editData.title==msg._id">
     <button class="btn btn-info pull-right"
@@ -7,10 +8,14 @@
 
 <div ng-show="editData._id==msg._id">
     <button class="btn btn-warning pull-right"
+            type="button"
             ng-click="setEditMode(false)"><i class="fui-cross"></i></button>
     <button class="btn btn-success pull-right spaced"
             ng-show="editMode"
-            ng-click="save()"><i class="fui-check"></i></button>
+            form-validator
+            fire="save()"><i class="fui-check"></i></button>
     <button class="btn btn-danger pull-right spaced"
+            ng-hide="msg.status!='waiting'"
             ng-click="trash()"><i class="fui-trash"></i></button>
 </div>
+</form>

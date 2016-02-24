@@ -35,6 +35,6 @@ function setupRouter($stateProvider, $urlRouterProvider) {
             data: { access: 'user' }
         });
 
-    $urlRouterProvider.otherwise("/notifications");
+    $urlRouterProvider.otherwise("/centralinks");
 
 }

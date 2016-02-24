@@ -7,15 +7,40 @@ $belize-hole:#2980b9;
   margin-top: -0.5em;
   font-size: 0.8em;
 }
+
 .justify {
   text-align: justify;
 }
+
+.version {
+  font-size:10px;
+  text-align:right;
+  color: $peter-river;
+}
+
+.account {
+  font-size: 15px;
+  margin-top:14px;
+  margin-right:5px;
+  display:block;
+  float:right;
+  color: $belize-hole;
+  font-weight: bold;
+  pointer-events: none;
+}
+
 .block {
-  width: 8vw;
+  width: 120px;
   opacity:0.8;
 }
+
 .spaced {
   margin-right: 4px;
+}
+
+.disconnect {
+  margin-top:5px;
+  float:right;
 }
 
 .overlay {
@@ -31,15 +56,44 @@ $belize-hole:#2980b9;
 .confirmation-panel {
   position:absolute;
   width: 25vw;
-  height: 30vh;
-  left: 25vw;
+  min-width:250px;
+  height: auto;
+  left: 30%;
   top: 20vh;
   z-index:51;
+  .panel-body {
+    min-height: 100px;
+  }
 }
+
 .pull-down-container {
-  position:absolute;
-  bottom:0;
+  position:relative;
   width:100%;
+  .btn-cancel {
+    float:left;
+    margin-left:10px;
+    width: 25%;
+    min-width:100px;
+    margin-bottom: 5px;
+  }
+  .btn-confirm {
+    float:left;
+    margin-left: 12%;
+    width: 40%;
+  }
+}
+
+.resetpassword {
+  text-align:center;
+  width:100%;
+  //float: right;
+  a {
+    font-size:0.9em;
+    &:hover {
+      text-decoration:underline;
+    }
+  }
+  display:inline-block;
 }
 
 .bottom_aligner {
@@ -51,44 +105,32 @@ $belize-hole:#2980b9;
 
 .new-message {
   text-align:center;
-
   -webkit-transition: all ease 1s;
   -moz-transition: all ease 1s;
   -o-transition: all ease 1s;
   transition: all ease 1s;
-
   cursor:pointer;
-}
-
-.new-message:hover {
   height:100px;
   p {
-    margin-top:0px;
+    font-size:20px;
   }
 }
+
 
 .new-message:not(:hover) {
   background-color:lighten(#3498db,20%);
   opacity:0.3;
   text-align:center;
-  margin-top:-10px;
-  margin-bottom:5px;
-
-  height:50px;
   p {
-    margin-top:-20px;
     color: #34495E;
   }
 }
-
 
 // Overrides:
 
 .btn.btn-primary.active {
   background:darken($peter-river,20);
 }
-
-
 
 
 // Styles relative to auth page

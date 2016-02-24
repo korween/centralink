@@ -1,6 +1,8 @@
-<div>
+<div ng-show="msg.status!='sent'">
     <button class="btn btn-danger pull-right spaced"
+            ng-class="{disabled:(msg.status=='failure')}"
             ng-click="reject(msg._id)"><i class="fui-cross"></i></button>
     <button class="btn btn-success pull-right spaced"
+            ng-class="{disabled:(msg.status=='success')}"
             ng-click="validate(msg._id)"><i class="fui-check"></i></button>
 </div>

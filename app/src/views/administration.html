@@ -18,9 +18,7 @@
                             <div class="subdate">Auteur: {{msg.author}} | Date d'envoi: {{msg.date | date}}</div>
                             <div>
                                 <p class="justify">
-                                    <span ng-bind-html="msg.content | summary | linky | formatText"></span>
-                                    <span ng-hide="msg.expand"><br>...</span>
-                                    <span ng-show="msg.expand" ng-bind-html="msg.content | xtend | linky | formatText"></span>
+                                    <span ng-bind-html="msg.content | summary:msg.expand | linky | formatText"></span>
                                 </p>
                             </div>
                         </div>

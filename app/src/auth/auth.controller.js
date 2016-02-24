@@ -11,7 +11,15 @@ function authController($scope,$rootScope,authService) {
     $scope.signin = signin;
     $scope.signout = signout;
     $scope.remember = true;
+    $scope.links=[];
 
+    /*=================        INIT         ========================*/
+
+    (function() {
+        authService.customLinks(addLinks);
+    })();
+
+    /*==============================================================*/
 
     function signin() {
         authService.login($scope.login,$scope.password,$scope.remember);
@@ -19,6 +27,15 @@ function authController($scope,$rootScope,authService) {
 
     function signout() {
         authService.logout();
+    }
+
+    function addLinks(links) {
+        if(links.data) {
+            links=links.data;
+            for (var l in links) {
+               $scope.links[l]=links[l];
+            }
+        }
     }
 
 

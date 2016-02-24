@@ -10,25 +10,24 @@
                         <p>Nouveau message</p>
                     </div>
                 </div>
+                <br>
                 <!-- repeat for each centralink -->
                 <div class="panel panel-default"
                      ng-repeat="msg in centralinks | filter: {author:$root.login} | orderBy: keepNewOnTop:reverse"
                      ng-click="expandPost(msg._id)">
                     <div class="panel-body">
-                        <div class="col-md-1">
+                        <div class="col-md-1 col-sm-2">
                             <div class="block pull-right" ng-class="getClassFromStatus(msg.status)">
                                 <i ng-class="msg.status| statusIcon"></i>&nbsp;&nbsp;{{msg.status | status}}
                             </div>
                         </div>
 
-                        <div class="col-md-8" ng-hide="editData._id==msg._id">
+                        <div class="col-md-8 col-sm-10" ng-hide="editData._id==msg._id">
                             <div><b>{{msg.title | uppercase}}</b></div>
                             <div class="subdate">Date d'envoi: {{msg.date | date:'dd-MM-yyyy'}}</div>
                             <div>
                                 <p class="justify">
-                                    <span ng-bind-html="msg.content | summary | linky | formatText"></span>
-                                    <span ng-hide="msg.expand"><br>...</span>
-                                    <span ng-show="msg.expand" ng-bind-html="msg.content | xtend | linky | formatText"></span>
+                                    <span ng-bind-html="msg.content | summary:msg.expand | linky | formatText"></span>
                                 </p>
                             </div>
                         </div>

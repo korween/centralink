@@ -57,14 +57,12 @@ function adminController($scope,rq) {
     function validate(id) {
         rq.validatePost(id,function(res) {
             loadPosts();
-            console.log(res);
         });
     }
 
     function reject(id) {
         rq.rejectPost(id,function(res) {
             loadPosts();
-            console.log(res);
         })
     }
 

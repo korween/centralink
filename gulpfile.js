@@ -122,11 +122,17 @@ gulp.task('html', function() {
         .pipe(gulp.dest('dist/views/'))
 })
 
+gulp.task('misc',function() {
+    gulp.src(["app/vendor/favicon.ico","app/vendor/custom-data.json"])
+        .pipe(gulp.dest('dist/'));
+})
+
 gulp.task('default', function() {
-    gulp.run('flatUILess','vendorAssets','vendorCSS','vendorJS', 'scripts', 'styles', 'html');
+    gulp.run('flatUILess','vendorAssets','vendorCSS','vendorJS', 'scripts', 'styles', 'html','misc');
 
     gulp.watch('app/src/**', ['scripts'])
     gulp.watch('app/vendor/variables.less', ['flatUILess'])
     gulp.watch('app/src/styles/**', ['styles'])
     gulp.watch('app/**/*.html', ['html'])
+    gulp.watch('app/vendor/*', ['misc'])
 })

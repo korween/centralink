@@ -12,13 +12,6 @@ function uiController($rootScope,$scope,rq) {
     $scope.moreToLoad = true;
     $scope.reverse = true;
     $scope.selectedDay=Date.today();
-    /*
-    $scope.centralinks = [
-        {'id':1,'title':'Message de test','category':'events','status':'waiting','date': new Date(), 'content':'Lorem ipsum dolor sit amet, no facer abhorreant est. Ius vidit ubique prompta id. Modus ludus alterum id nec, hinc duis explicari ad mei. Id laudem offendit sea, magna alterum sadipscing vix in, illud admodum ea sit.','expand':false},
-        {'id':2,'title':'Autre message','category':'special','status':'sent','date': new Date(),'content':'Sample Text','expand':false}
-    ];
-    */
-
     $scope.getClassFromStatus = getClassFromStatus;
     $scope.expandPost = expandPost;
     $scope.keepNewOnTop = keepNewOnTop;
@@ -30,11 +23,13 @@ function uiController($rootScope,$scope,rq) {
     $scope.trash = trash;
     $scope.trashConfirm = trashConfirm;
     $scope.trashCancel = trashCancel;
+    $scope.version = "";
 
     /* :::::::::::::   INIT   ::::::::::::::::: */
 
     (function() {
-        loadPosts($rootScope.login);
+        loadPosts();
+        loadVersion();
     })();
 
     /* :::::::::::::::::::::::::::::::::::::::: */
@@ -43,7 +38,7 @@ function uiController($rootScope,$scope,rq) {
         return {
             '_id': Math.random().toString(36).substring(3),
             'title':'',
-            'category':'',
+            'category':'Communication',
             'author':$rootScope.login,
             'status':'new',
             'date': '',
@@ -60,6 +55,13 @@ function uiController($rootScope,$scope,rq) {
                     res.data[el].expand = false;
             }
             $scope.centralinks = res.data;
+        });
+    }
+
+    function loadVersion() {
+        rq.getVersion(function(v) {
+            if(v.data && v.data.version)
+                $scope.version= v.data.version;
         });
     }
 
@@ -115,7 +117,6 @@ function uiController($rootScope,$scope,rq) {
         }
     }
 
-
     function expandPost(id) {
         for (var c in $scope.centralinks) {
             if($scope.centralinks[c]._id==id)
@@ -147,8 +148,6 @@ function uiController($rootScope,$scope,rq) {
     }
 
     function saveSuccess(res) {
-        if(res.status==200) console.log("ok");
-        else console.log(res);
         $scope.editData={};
         $scope.editMode=false;
         loadPosts($rootScope.login);
@@ -166,15 +165,12 @@ function uiController($rootScope,$scope,rq) {
         $scope.confirmationMsg='';
         $scope.editMode=false;
         rq.deletePost($scope.editData._id,function(res) {
-            if(res.status==200)
-                console.log('OK');
-            loadPosts($rootScope.login);
+            loadPosts();
         });
 
     }
 
     function trashCancel() {
-        console.log('Call cancel called')
         $scope.confirmationMsg="";
         $scope.confirmationButtons=[];
     }

@@ -1,45 +1,45 @@
-<form>
-    <div class="col-md-8">
-        <div><input type="text" class="form-control" ng-model="editData.title" placeholder="Titre"/></div>
-        <br>
-        <div class="btn-toolbar">
-            <div class="btn-group">
-                <div class="btn btn-primary"
-                     ng-repeat="item in categories"
-                     ng-class="(item==editData.category)?'active':''"
-                     ng-click="selectCategory($index)">{{item | category}}
-                </div>
+<div class="col-md-8">
+    <div><input type="text" class="form-control" ng-model="editData.title" placeholder="Titre" maxlength="50" required/></div>
+    <br>
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <div class="btn btn-primary"
+                 ng-repeat="item in categories"
+                 ng-class="(item==editData.category)?'active':''"
+                 ng-click="selectCategory($index)">{{item | category}}
             </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-md-4">
-                <datepicker min="0" max="20"></datepicker>
-            </div>
-            <div class="col-md-8">
-                <div class="btn-group">
-                    <div class="col-md-12">
-                    <label>
-                        <input type="checkbox" ng-model="editData.centrale" data-toggle="checkbox" class="custom-checkbox">
-                        Envoyer à Centrale
-                    </label>
-                    </div>
-                    <div class="col-md-12">
-                    <label>
-                        <input type="checkbox" ng-model="editData.iteem" data-toggle="checkbox" class="custom-checkbox">
-                        Envoyer à l'Iteem
-                    </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br/>
-        <div>
-            <p class="justify">
-            <textarea msd-elastic="\n" class="form-control" ng-model="editData.content" placeholder="Contenu"/>
-            </p>
-        </div>
-
-
     </div>
-</form>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <datepicker min="0" max="20"></datepicker>
+        </div>
+        <div class="col-md-8">
+            <div class="btn-group">
+                <div class="col-md-12">
+                <label>
+                    <input type="checkbox" ng-model="editData.centrale"
+                           data-toggle="checkbox" class="custom-checkbox"
+                           ng-required="!(editData.centrale && editData.iteem)">
+                    Envoyer à Centrale
+                </label>
+                </div>
+                <div class="col-md-12">
+                <label>
+                    <input type="checkbox" ng-model="editData.iteem"
+                           data-toggle="checkbox" class="custom-checkbox"
+                           ng-required="!(editData.centrale && editData.iteem)">
+                    Envoyer à l'Iteem
+                </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div>
+        <p class="justify">
+        <textarea msd-elastic="\n" class="form-control" ng-model="editData.content" maxlength="1000" placeholder="Contenu" required/>
+        </p>
+    </div>
+</div>

@@ -12,16 +12,6 @@ uiModule.directive('scroll', function($window) {
 
                 }
             });
-        /*
-            $window.bind('scroll', function () {
-                console.log('test')
-                if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-
-                }
-            });
-            */
         }
-
     }
-
 });

@@ -9,7 +9,8 @@ function getRequester($http) {
         'savePost': savePost,
         'addPost': addPost,
         'validatePost': validatePost,
-        'rejectPost': rejectPost
+        'rejectPost': rejectPost,
+        'getVersion':getVersion
     }
 
     return service;
@@ -38,8 +39,14 @@ function getRequester($http) {
         return {
             'posts': '/api/post/',
             'accept': '/api/moderation/'+id+'/validat/',
-            'reject': '/api/moderation/'+id+'/reject/'
+            'reject': '/api/moderation/'+id+'/reject/',
+            'version': '/custom-data.json'
         }
+    }
+
+    function getVersion(cb) {
+        var r = new Resolver();
+        get_request(r.version,cb);
     }
 
     /* :::::::::::::::::::::::::::::::::::::::: */
@@ -53,12 +60,14 @@ function getRequester($http) {
 
     function addPost(data, cb) {
         var r = new Resolver();
+        console.log('POST',data.centrale,data.iteem);
         post_request(r.posts, data, cb);
     }
 
 
     function savePost(id, data, cb) {
         var r = new Resolver();
+        console.log('PUT',data.centrale,data.iteem);
         put_request(r.posts + id, data, cb);
     }
 

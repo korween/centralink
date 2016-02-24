@@ -9,7 +9,8 @@ function getAuthService($rootScope,$http,$state,$cookies) {
         'logout':logout,
         'check':checkLogin,
         'authorize':authorize,
-        'isLoggedIn': isLoggedIn
+        'isLoggedIn': isLoggedIn,
+        'customLinks': customLinks
     }
 
     return service;
@@ -21,7 +22,8 @@ function getAuthService($rootScope,$http,$state,$cookies) {
     function resolver() {
         var resolve = {
             'login': '/api/login/',
-            'account':'/api/my_account'
+            'account':'/api/my_account',
+            'customLinks':'/custom-data.json'
         }
         return resolve;
 
@@ -34,11 +36,20 @@ function getAuthService($rootScope,$http,$state,$cookies) {
 
     }
 
+    function customLinks(cb) {
+        var r = new resolver();
+        $http.get(r.customLinks).then(function(data) {
+            cb(data);
+        },function(err) {
+            cb(null);
+        });
+    }
+
 
     function checkLogin(cb) {
         var r = new resolver();
         $http.get(r.account).then(function(data) {
-            cb(false);
+            cb(false,data);
         },function(err) {
             cb(true);
         });
@@ -73,7 +84,6 @@ function getAuthService($rootScope,$http,$state,$cookies) {
             }
             /* --- No auth required --- */
             else if (accessLevel == 'all') {
-                console.log('all access level')
                 callback(true);
             }
             /* --- Not authorized   --- */
@@ -87,8 +97,14 @@ function getAuthService($rootScope,$http,$state,$cookies) {
     function rootScopeConnect(login,roles) {
         $rootScope.connected = true;
         $rootScope.login = login;
+        checkLogin(function(err,r) {
+            $rootScope.account={
+                'fn': r.data.firstname, //.charAt(0)+'.'
+                'ln': r.data.lastname
+            };
+        })
+
         $rootScope.permissions = roles;
-        console.log(roles);
     }
 
     function rootScopeDisconnect() {
@@ -109,7 +125,6 @@ function getAuthService($rootScope,$http,$state,$cookies) {
 
 
     function loginSuccess(res) {
-        console.log('login success')
         if($rootScope.remember) {
             $cookies.put('centralink-remember', res.data.login + '#' + res.data.roles);
         }
@@ -122,7 +137,7 @@ function getAuthService($rootScope,$http,$state,$cookies) {
             $state.go(prevState);
         }
         else {
-            $state.go('notifications');
+            $state.go('centralinks');
         }
         return true;
     }

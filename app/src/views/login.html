@@ -6,18 +6,22 @@
             <div class="account-wall">
                 <img class="profile-img" src="assets/images/logo.png"
                      alt="">
-                <form class="form-signin">
+                <form class="form-signin" ng-submit="signin()">
                     <input type="text" class="form-control" placeholder="Identifiant" ng-model="login" required autofocus>
                     <input type="password" class="form-control" placeholder="Mot de passe" ng-model="password" required>
                     <label class="checkbox pull-left">
                         <input type="checkbox" value="remember-me" ng-model="remember">
                         Se rappeler de moi
                     </label><br>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="signin()">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
                         Se connecter</button>
-
                 </form>
+                <div class="resetpassword"
+                     ng-show="links['resetpw']">
+                        <a href="{{links['resetpw']}}">Mot de passe oublié?</a>
+                </div><br>
                 <div ng-show="$root.loginError" class="palette palette-pomegranate">{{$root.loginError}}</div>
+
             </div>
         </div>
     </div>
