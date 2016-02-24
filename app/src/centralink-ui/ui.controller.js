@@ -23,13 +23,11 @@ function uiController($rootScope,$scope,rq) {
     $scope.trash = trash;
     $scope.trashConfirm = trashConfirm;
     $scope.trashCancel = trashCancel;
-    $scope.version = "";
 
     /* :::::::::::::   INIT   ::::::::::::::::: */
 
     (function() {
         loadPosts();
-        loadVersion();
     })();
 
     /* :::::::::::::::::::::::::::::::::::::::: */
@@ -58,12 +56,7 @@ function uiController($rootScope,$scope,rq) {
         });
     }
 
-    function loadVersion() {
-        rq.getVersion(function(v) {
-            if(v.data && v.data.version)
-                $scope.version= v.data.version;
-        });
-    }
+
 
     function loadMorePosts() {
         $scope.moreToLoad=false;

@@ -3,9 +3,6 @@ var routerModule = require('./_index');
 routerModule.config(setupRouter);
 
 function setupRouter($stateProvider, $urlRouterProvider) {
-    console.log('Router loaded')
-
-
     $stateProvider
         .state('default', {
             url:'/',

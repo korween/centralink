@@ -1,8 +1,8 @@
 var authModule = require('./../ui-router/_index');
 
-authModule.controller('AuthController',['$scope','$rootScope','authService',authController]);
+authModule.controller('AuthController',['$scope','$rootScope','authService','rq',authController]);
 
-function authController($scope,$rootScope,authService) {
+function authController($scope,$rootScope,authService,rq) {
     $scope.login = "";
     $scope.password = "";
 
@@ -12,11 +12,13 @@ function authController($scope,$rootScope,authService) {
     $scope.signout = signout;
     $scope.remember = true;
     $scope.links=[];
+    $rootScope.version="";
 
     /*=================        INIT         ========================*/
 
     (function() {
         authService.customLinks(addLinks);
+        loadVersion();
     })();
 
     /*==============================================================*/
@@ -36,6 +38,13 @@ function authController($scope,$rootScope,authService) {
                $scope.links[l]=links[l];
             }
         }
+    }
+
+    function loadVersion() {
+        rq.getVersion(function(v) {
+            if(v.data && v.data.version)
+                $rootScope.version= v.data.version;
+        });
     }
 
 
