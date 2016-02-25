@@ -105,6 +105,8 @@ function uiController($rootScope,$scope,rq) {
                 return 'palette palette-emerald'
             case 'new':
                 return 'palette palette-belize-hole'
+            case 'sent':
+                return 'palette palette-peter-river'
             case 'failure':
                 return 'palette palette-pomegranate'
         }
